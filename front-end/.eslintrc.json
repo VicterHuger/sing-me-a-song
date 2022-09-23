@@ -1,0 +1,79 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "airbnb",
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    "overrides": [],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "eslint-plugin-import-helpers",
+        "prettier"
+    ],
+    "rules": {
+        "camelcase": "off",
+        "import/no-unresolved": "error",
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
+        "no-shadow": "off",
+        "no-console": "off",
+        "no-useless-constructor": "off",
+        "no-empty-function": "off",
+        "lines-between-class-members": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages"
+        ],
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                "newlinesBetween": "always",
+                "groups": [
+                    "module",
+                    "/^@shared/",
+                    [
+                        "parent",
+                        "sibling",
+                        "index"
+                    ]
+                ],
+                "alphabetize": {
+                    "order": "asc",
+                    "ignoreCase": true
+                }
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "**/*.spec.js"
+                ]
+            }
+        ],
+        "prettier/prettier": "error",
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/react-in-jsx-scope": "off",
+        "no-use-before-define": "off"
+    }
+}
