@@ -1,23 +1,25 @@
 {
-  "name": "typescript-back-template",
+  "name": "api-singmeasong",
   "version": "1.0.0",
   "type": "module",
-  "description": "",
+  "description": "an api to signup recommendations of songs",
   "main": "index.js",
   "scripts": {
     "build": "tsc && npx prisma generate && npx prisma migrate deploy",
     "start": "/dist/src/server.ts",
-    "dev": "dotenv -e .env.test nodemon src/server.ts",
-    "test": "dotenv -e .env.test npx migrate dev && dotenv -e .env.test -- jest -i --coverage"
+    "dev": "dotenv -e .env.test npx prisma migrate dev && dotenv -e .env.test nodemon src/server.ts",
+    "test:integration": "dotenv -e .env.test -- jest -i --coverage --testPathPattern=tests/integration",
+    "test:unit": "dotenv -e .env.test jest -- -i --coverage --testPathPattern=tests/unit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^7.5.0",
     "@types/cors": "^2.8.12",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
-    "@types/jest": "^27.5.0",
+    "@types/jest": "^27.5.2",
     "@types/joi": "^17.2.3",
     "@types/node": "^16.3.3",
     "@types/supertest": "^2.0.11",
@@ -41,7 +43,7 @@
     "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@prisma/client": "^3.13.0",
+    "@prisma/client": "^3.15.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
