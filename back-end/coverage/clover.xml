@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1664052315125" clover="3.2.0">
-  <project timestamp="1664052315125" name="All files">
-    <metrics statements="131" coveredstatements="77" conditionals="29" coveredconditionals="11" methods="36" coveredmethods="14" elements="196" coveredelements="102" complexity="0" loc="131" ncloc="131" packages="9" files="11" classes="11"/>
+<coverage generated="1664056425282" clover="3.2.0">
+  <project timestamp="1664056425282" name="All files">
+    <metrics statements="134" coveredstatements="86" conditionals="30" coveredconditionals="13" methods="37" coveredmethods="19" elements="201" coveredelements="118" complexity="0" loc="134" ncloc="134" packages="9" files="11" classes="11"/>
     <package name="src">
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.ts" path="/home/victor-hugo/Documents/Driven/Arquitetura-Infraestrutura-Boas-Praticas/projetos/projeto21-singmeasong/back-end/src/app.ts">
@@ -26,9 +26,9 @@
       </file>
     </package>
     <package name="src.controllers">
-      <metrics statements="25" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="1"/>
+      <metrics statements="25" coveredstatements="11" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="2"/>
       <file name="recommendationController.ts" path="/home/victor-hugo/Documents/Driven/Arquitetura-Infraestrutura-Boas-Praticas/projetos/projeto21-singmeasong/back-end/src/controllers/recommendationController.ts">
-        <metrics statements="25" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="1"/>
+        <metrics statements="25" coveredstatements="11" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -45,8 +45,8 @@
         <line num="30" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="41" count="2" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
@@ -69,15 +69,15 @@
       </file>
     </package>
     <package name="src.repositories">
-      <metrics statements="13" coveredstatements="4" conditionals="1" coveredconditionals="0" methods="8" coveredmethods="2"/>
+      <metrics statements="13" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="8" coveredmethods="4"/>
       <file name="recommendationRepository.ts" path="/home/victor-hugo/Documents/Driven/Arquitetura-Infraestrutura-Boas-Praticas/projetos/projeto21-singmeasong/back-end/src/repositories/recommendationRepository.ts">
-        <metrics statements="13" coveredstatements="4" conditionals="1" coveredconditionals="0" methods="8" coveredmethods="2"/>
+        <metrics statements="13" coveredstatements="7" conditionals="1" coveredconditionals="1" methods="8" coveredmethods="4"/>
         <line num="2" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
-        <line num="36" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="36" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="38" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="46" count="0" type="stmt"/>
@@ -114,9 +114,9 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="32" coveredstatements="7" conditionals="6" coveredconditionals="1" methods="9" coveredmethods="1"/>
+      <metrics statements="32" coveredstatements="8" conditionals="6" coveredconditionals="1" methods="9" coveredmethods="2"/>
       <file name="recommendationsService.ts" path="/home/victor-hugo/Documents/Driven/Arquitetura-Infraestrutura-Boas-Praticas/projetos/projeto21-singmeasong/back-end/src/services/recommendationsService.ts">
-        <metrics statements="32" coveredstatements="7" conditionals="6" coveredconditionals="1" methods="9" coveredmethods="1"/>
+        <metrics statements="32" coveredstatements="8" conditionals="6" coveredconditionals="1" methods="9" coveredmethods="2"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
@@ -132,7 +132,7 @@
         <line num="37" count="0" type="stmt"/>
         <line num="38" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="40" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
+        <line num="44" count="2" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
@@ -174,23 +174,26 @@
       </file>
     </package>
     <package name="tests.factories">
-      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="5"/>
+      <metrics statements="14" coveredstatements="14" conditionals="1" coveredconditionals="1" methods="6" coveredmethods="6"/>
       <file name="cleanDisconectTableFactory.ts" path="/home/victor-hugo/Documents/Driven/Arquitetura-Infraestrutura-Boas-Praticas/projetos/projeto21-singmeasong/back-end/tests/factories/cleanDisconectTableFactory.ts">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
+        <line num="4" count="6" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
       </file>
       <file name="recommendationFactory.ts" path="/home/victor-hugo/Documents/Driven/Arquitetura-Infraestrutura-Boas-Praticas/projetos/projeto21-singmeasong/back-end/tests/factories/recommendationFactory.ts">
-        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <metrics statements="10" coveredstatements="10" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="17" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="7" count="22" type="stmt"/>
+        <line num="15" count="3" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="20" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
       </file>
     </package>
   </project>
