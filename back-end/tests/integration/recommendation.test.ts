@@ -157,3 +157,45 @@ describe('POST /recommendations/:id/upvote', () => {
         expect(recommendationUpdated.score).toBe(recommendation.score + 1);
     })
 });
+
+describe('/POST /recommendations/:id/downvote', () => {
+    it('should return status 500 if id isnt convertable to number', async () => {
+
+        const result = await supertest(app).get(`/recommendations/${faker.random.alpha()}`);
+
+        expect(result.status).toBe(500);
+    })
+
+    it('should return status 404 if id isnt of a recommendation', async () => {
+
+        const result = await supertest(app).get(`/recommendations/${faker.mersenne.rand()}`);
+
+        expect(result.status).toBe(404);
+    });
+
+    it('should return status 200 and downvote a recommendation by its id', async () => {
+
+        const recommendation = await recommendationFactory.insertRecommendation() as Recommendation;
+
+        const result = await supertest(app).post(`/recommendations/${recommendation.id}/downvote`);
+
+        const recommendationUpdated = await recommendationFactory.findRecommendationByName(recommendation.name);
+
+        expect(result.status).toBe(200);
+        expect(recommendationUpdated.score).toBe(recommendation.score - 1);
+    });
+
+    it('should return status 200 and exclude if the recommendation downvote to less than -5', async () => {
+        const recommendation = await recommendationFactory.insertRecommendation() as Recommendation;
+
+        const recommendationUpdated = await recommendationFactory.updateUpVote(recommendation.id, 5, 'decrement');
+
+        const result = await supertest(app).post(`/recommendations/${recommendation.id}/downvote`);
+
+        const excludedRecommendation = await recommendationFactory.findRecommendationByName(recommendation.name);
+
+        expect(result.status).toBe(200);
+        expect(excludedRecommendation).toBeNull();
+    });
+
+})
