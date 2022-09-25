@@ -28,22 +28,22 @@ async function insertRecommendation(count = 1): Promise<void | Recommendation> {
     return;
 };
 
-async function findRecommendationByName(name: string) {
+async function findRecommendationByName(name: string): Promise<null | Recommendation> {
     return await prisma.recommendation.findUnique({ where: { name } });
 }
 
-async function updateUpVote(id: number, score = 1) {
+async function updateVote(id: number, score = 1, operation = 'increment') {
 
     return await prisma.recommendation.update({
         where: {
             id
         },
         data: {
-            score: { increment: score }
+            score: { [operation]: score }
         }
     })
 }
 
 export const recommendationFactory = {
-    createRecommendation, insertRecommendation, findRecommendationByName, updateUpVote
+    createRecommendation, insertRecommendation, findRecommendationByName, updateVote
 }

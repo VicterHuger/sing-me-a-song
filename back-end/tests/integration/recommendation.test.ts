@@ -114,7 +114,7 @@ describe('GET /recommendations/top/:amount', () => {
         const amount = 10;
 
         await recommendationFactory.insertRecommendation(lengthRecommendations)
-        await recommendationFactory.updateUpVote(lengthRecommendations);
+        await recommendationFactory.updateVote(lengthRecommendations);
 
         const result = await supertest(app).get(`/recommendations/top/${amount}`);
 
@@ -188,7 +188,7 @@ describe('/POST /recommendations/:id/downvote', () => {
     it('should return status 200 and exclude if the recommendation downvote to less than -5', async () => {
         const recommendation = await recommendationFactory.insertRecommendation() as Recommendation;
 
-        const recommendationUpdated = await recommendationFactory.updateUpVote(recommendation.id, 5, 'decrement');
+        const recommendationUpdated = await recommendationFactory.updateVote(recommendation.id, 5, 'decrement');
 
         const result = await supertest(app).post(`/recommendations/${recommendation.id}/downvote`);
 
