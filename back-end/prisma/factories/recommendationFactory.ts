@@ -32,6 +32,17 @@ async function findRecommendationByName(name: string) {
     return await prisma.recommendation.findUnique({ where: { name } });
 }
 
+async function updateUpVote(id: number) {
+    return await prisma.recommendation.update({
+        where: {
+            id
+        },
+        data: {
+            score: { increment: 1 }
+        }
+    })
+}
+
 export const recommendationFactory = {
-    createRecommendation, insertRecommendation, findRecommendationByName
+    createRecommendation, insertRecommendation, findRecommendationByName, updateUpVote
 }

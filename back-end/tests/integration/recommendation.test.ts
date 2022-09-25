@@ -81,11 +81,17 @@ describe('/GET /recommendations', () => {
 });
 
 describe('/GET /recommendations/:id', () => {
+    it('should return status 500 if id isnt convertable to number', async () => {
+        const result = await supertest(app).get(`/recommendations/${faker.random.alpha()}`);
+        expect(result.status).toBe(500);
+    })
+
     it('should return status 404 if id isnt of a recommendation', async () => {
         const result = await supertest(app).get(`/recommendations/${faker.mersenne.rand()}`);
 
         expect(result.status).toBe(404);
     });
+
     it('/should return status 200 and the recommendation of the recommendation id', async () => {
         const recommendation = await recommendationFactory.insertRecommendation() as Recommendation;
 
@@ -93,6 +99,34 @@ describe('/GET /recommendations/:id', () => {
 
         expect(result.status).toBe(200);
         expect(result.body).toEqual(recommendation);
-    })
+    });
 
-})
+});
+
+describe('GET /recommendations/top/:amount', () => {
+    it('should return status 500 if amount cant not be converted to number', async () => {
+        const result = await supertest(app).get(`/recommendations/top/${faker.random.alpha()}`);
+
+        expect(result.status).toBe(500);
+    });
+    it('should return status 200, recommendations in the amount passed and in the correct order', async () => {
+        const lengthRecommendations = 5;
+        const amount = 10;
+
+        await recommendationFactory.insertRecommendation(lengthRecommendations)
+        await recommendationFactory.updateUpVote(lengthRecommendations);
+
+        const result = await supertest(app).get(`/recommendations/top/${amount}`);
+
+        expect(result.status).toBe(200);
+        expect(result.body[0].score).toBeGreaterThanOrEqual(result.body[1].score);
+        expect(result.body[1].score).toBeGreaterThanOrEqual(result.body[lengthRecommendations - 1].score);
+        expect(result.body[0]).toMatchObject(expect.objectContaining({
+            id: expect.any(Number),
+            name: expect.any(String),
+            score: expect.any(Number),
+            youtubeLink: expect.any(String)
+        }));
+        expect(result.body.length).toBe(lengthRecommendations);
+    });
+});
