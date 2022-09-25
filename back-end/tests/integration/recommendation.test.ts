@@ -1,7 +1,7 @@
 import app from '../../src/app';
 import supertest from 'supertest';
-import { cleanDisconectTableFactory } from '../factories/cleanDisconectTableFactory';
-import { recommendationFactory } from '../factories/recommendationFactory';
+import { cleanDisconectTableFactory } from '../../prisma/factories/cleanDisconectTableFactory';
+import { recommendationFactory } from '../../prisma/factories/recommendationFactory';
 import { Recommendation } from '@prisma/client';
 import { faker } from '@faker-js/faker';
 
@@ -78,4 +78,21 @@ describe('/GET /recommendations', () => {
             score: expect.any(Number)
         }));
     });
+});
+
+describe('/GET /recommendations/:id', () => {
+    it('should return status 404 if id isnt of a recommendation', async () => {
+        const result = await supertest(app).get(`/recommendations/${faker.mersenne.rand()}`);
+
+        expect(result.status).toBe(404);
+    });
+    it('/should return status 200 and the recommendation of the recommendation id', async () => {
+        const recommendation = await recommendationFactory.insertRecommendation() as Recommendation;
+
+        const result = await supertest(app).get(`/recommendations/${recommendation.id}`);
+
+        expect(result.status).toBe(200);
+        expect(result.body).toEqual(recommendation);
+    })
+
 })

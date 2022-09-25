@@ -11,7 +11,6 @@ function createRecommendation(): CreateRecommendationData {
 }
 
 async function insertRecommendation(count?: number): Promise<void | Recommendation> {
-
     if (count === undefined) {
         return await prisma.recommendation.create({
             data: createRecommendation(),
@@ -26,6 +25,7 @@ async function insertRecommendation(count?: number): Promise<void | Recommendati
         data: recommendations,
         skipDuplicates: true,
     });
+    return;
 };
 
 async function findRecommendationByName(name: string) {
