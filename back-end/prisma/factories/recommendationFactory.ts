@@ -44,6 +44,10 @@ async function updateVote(id: number, score = 1, operation = 'increment') {
     })
 }
 
+export interface IHashTableRecommendation {
+    [key: number]: number;
+}
+
 export const recommendationFactory = {
     createRecommendation, insertRecommendation, findRecommendationByName, updateVote
 }

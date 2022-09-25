@@ -4,6 +4,7 @@ import { cleanDisconectTableFactory } from '../../prisma/factories/cleanDisconec
 import { recommendationFactory } from '../../prisma/factories/recommendationFactory';
 import { Recommendation } from '@prisma/client';
 import { faker } from '@faker-js/faker';
+import { IHashTableRecommendation } from '../../prisma/factories/recommendationFactory';
 
 beforeEach(async () => await cleanDisconectTableFactory.truncateRecommendationTable());
 
@@ -188,7 +189,7 @@ describe('/POST /recommendations/:id/downvote', () => {
     it('should return status 200 and exclude if the recommendation downvote to less than -5', async () => {
         const recommendation = await recommendationFactory.insertRecommendation() as Recommendation;
 
-        const recommendationUpdated = await recommendationFactory.updateVote(recommendation.id, 5, 'decrement');
+        await recommendationFactory.updateVote(recommendation.id, 5, 'decrement');
 
         const result = await supertest(app).post(`/recommendations/${recommendation.id}/downvote`);
 
@@ -198,4 +199,90 @@ describe('/POST /recommendations/:id/downvote', () => {
         expect(excludedRecommendation).toBeNull();
     });
 
-})
+});
+
+describe('/GET /recommendations/random', () => {
+    beforeEach(async () => await cleanDisconectTableFactory.truncateRecommendationTable());
+    it('should return 404 status if there is no recommendation in database', async () => {
+
+        const result = await supertest(app).get('/recommendations/random');
+
+        expect(result.status).toBe(404);
+    });
+
+    it('should return status 200 and random musics if all recommendations have score less or equal 10', async () => {
+        const recommendationLength = 100;
+        await recommendationFactory.insertRecommendation(recommendationLength);
+
+        const hashtable: IHashTableRecommendation = {};
+
+
+        for (let i = 0; i < 10; i++) {
+            const result = await supertest(app).get('/recommendations/random');
+            if (hashtable[result.body.id] === undefined) hashtable[result.body.id] = 1;
+            hashtable[result.body.id]++;
+            expect(result.status).toBe(200);
+        };
+
+        expect(Object.entries(hashtable).length).toBeGreaterThanOrEqual(5);
+
+    });
+
+    it('should return status 200 and random recommendations if all recommendations have score above 10', async () => {
+        const recommendationLength = 20;
+        await recommendationFactory.insertRecommendation(recommendationLength) as void;
+        for (let i = 0; i < recommendationLength; i++) {
+            const id: number = i + 1;
+            await recommendationFactory.updateVote(id, 15);
+        }
+        const hashtable: IHashTableRecommendation = {};
+        for (let i = 0; i < 10; i++) {
+            const result = await supertest(app).get('/recommendations/random');
+            expect(result.status).toBe(200);
+            if (hashtable[result.body.id] === undefined) hashtable[result.body.id] = 1;
+            hashtable[result.body.id]++;
+        }
+
+        expect(Object.entries(hashtable).length).toBeGreaterThanOrEqual(5);
+    });
+
+    it('should return status 200 and a random recommendation with a score higher than 10 in 70% of this route usage', async () => {
+        const recommendationsLength = 100;
+
+        await recommendationFactory.insertRecommendation(recommendationsLength);
+
+        for (let i = 0; i < 10; i++) {
+            const id = i + 1;
+            await recommendationFactory.updateVote(id, 15);
+        };
+
+        let countRecommendationsScoreAboveTen = 0;
+        for (let i = 0; i < recommendationsLength; i++) {
+            const result = await supertest(app).get('/recommendations/random');
+            if (result.body.score > 10) countRecommendationsScoreAboveTen++;
+            expect(result.status).toBe(200);
+        }
+        expect(countRecommendationsScoreAboveTen).toBeGreaterThan(0.65 * recommendationsLength);
+    });
+
+    it('should return status 200 and a recommendation with score less or equal ten and greatter than -5 in 30% of the cases', async () => {
+        const recommendationLength: number = 100;
+        await recommendationFactory.insertRecommendation(recommendationLength);
+
+        let countRecommendations: number = 0;
+
+        for (let i = 0; i < 10; i++) {
+            const id: number = i + 1;
+            await recommendationFactory.updateVote(id, 15);
+        }
+
+        for (let i = 0; i < recommendationLength; i++) {
+            const result = await supertest(app).get('/recommendations/random');
+            expect(result.status).toBe(200);
+            if (result.body.score > -5 && result.body.score <= 10) countRecommendations++;
+        }
+
+        expect(countRecommendations).toBeGreaterThan(0.25 * recommendationLength);
+    })
+
+});
