@@ -10,8 +10,8 @@ function createRecommendation(): CreateRecommendationData {
     };
 }
 
-async function insertRecommendation(count?: number): Promise<void | Recommendation> {
-    if (count === undefined) {
+async function insertRecommendation(count = 1): Promise<void | Recommendation> {
+    if (count === 1) {
         return await prisma.recommendation.create({
             data: createRecommendation(),
         });
@@ -32,13 +32,14 @@ async function findRecommendationByName(name: string) {
     return await prisma.recommendation.findUnique({ where: { name } });
 }
 
-async function updateUpVote(id: number) {
+async function updateUpVote(id: number, score = 1) {
+
     return await prisma.recommendation.update({
         where: {
             id
         },
         data: {
-            score: { increment: 1 }
+            score: { increment: score }
         }
     })
 }
