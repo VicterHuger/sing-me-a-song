@@ -1,13 +1,13 @@
 import { PrismaClient } from '@prisma/client';
 import { CreateRecommendationData } from '../src/services/recommendationsService';
-import { faker } from '@faker-js/faker'
+import { faker } from '@faker-js/faker';
 
 // import { recommendationFactory } from './factories/recommendationFactory';
 
 const prisma = new PrismaClient();
 
 async function main() {
-    // return await recommendationFactory.insertRecommendation();
+    await prisma.$executeRaw`TRUNCATE TABLE recommendations RESTART IDENTITY`;
     const count = 10;
     const recommendations: CreateRecommendationData[] = Array.from({ length: count }).map(() => {
         return {
