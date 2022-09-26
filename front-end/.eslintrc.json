@@ -8,7 +8,8 @@
         "plugin:react/recommended",
         "airbnb",
         "prettier",
-        "plugin:prettier/recommended"
+        "plugin:prettier/recommended",
+        "plugin:cypress/recommended"
     ],
     "overrides": [],
     "parserOptions": {
@@ -20,12 +21,13 @@
     },
     "plugins": [
         "react",
+        "react-hooks",
         "eslint-plugin-import-helpers",
         "prettier"
     ],
     "rules": {
         "camelcase": "off",
-        "import/no-unresolved": "error",
+        "import/no-unresolved": "warn",
         "class-methods-use-this": "off",
         "import/prefer-default-export": "off",
         "no-shadow": "off",
@@ -33,10 +35,18 @@
         "no-useless-constructor": "off",
         "no-empty-function": "off",
         "lines-between-class-members": "off",
+        "no-unused-vars": "warn",
         "import/extensions": [
             "error",
-            "ignorePackages"
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
         ],
+        "react/prop-types": "warn",
         "import-helpers/order-imports": [
             "warn",
             {
@@ -57,23 +67,27 @@
             }
         ],
         "import/no-extraneous-dependencies": [
-            "error",
+            "warn",
             {
                 "devDependencies": [
                     "**/*.spec.js"
                 ]
             }
         ],
-        "prettier/prettier": "error",
+        "prettier/prettier": "warn",
         "react/jsx-filename-extension": [
             1,
             {
                 "extensions": [
-                    ".jsx"
+                    ".js",
+                    ".ts",
+                    "tsx"
                 ]
             }
         ],
         "react/react-in-jsx-scope": "off",
-        "no-use-before-define": "off"
+        "no-use-before-define": "off",
+        "react/jsx-props-no-spreading": "off",
+        "eslint-disable-next-line react-hooks/exhaustive-deps": "off"
     }
 }
