@@ -8,8 +8,8 @@
     "build": "tsc && npx prisma generate && npx prisma migrate deploy",
     "start": "/dist/src/server.ts",
     "dev": "dotenv -e .env.test prisma db seed && dotenv -e .env.test nodemon src/server.ts",
-    "test:integration": "dotenv -e .env.test -- jest  --coverage --testPathPattern=tests/integration",
-    "test:unit": "dotenv -e .env.test -- jest -i --coverage --testPathPattern=tests/unit"
+    "test:integration": "dotenv -e .env.test -- jest --coverage --config jestIntegration.config.js  --testPathPattern=tests/integration",
+    "test:unit": "dotenv -e .env.test -- jest --coverage --no-cache --config jestUnit.config.js --testPathPattern=tests/unit"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
